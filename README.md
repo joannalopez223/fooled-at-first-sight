@@ -4,7 +4,7 @@
 
 Companion page for a research poster presented at the UNR Graduate Poster Symposium, October 27, 2026.
 
-**View the page:** https://your-username.github.io/fooled-at-first-sight/
+**View the page:** [https://joannalopez223.github.io/fooled-at-first-sight/]
 
 ## About
 
