@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fooled at First Sight? Eye-Tracking, Memory Recall, and Psychometric Modeling of Real vs. AI Image Judgments</title>
+<meta name="description" content="Companion page for a research poster presented at the UNR Graduate Poster Symposium, October 27, 2026. How people look at, judge, and remember AI-generated versus real images.">
+<meta name="robots" content="noindex">
+<style>
+  :root {
+    color-scheme: light;
+    --navy: #1C335C;
+    --navy-deep: #142646;
+    --ink: #1A1A1A;
+    --slate: #4A5568;
+    --tint: #EEF2F8;
+    --rule: #D3DBE8;
+    --white: #FFFFFF;
+    --serif: Charter, "Iowan Old Style", "Palatino Linotype", Georgia, "Times New Roman", serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    background: var(--white);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: 1.125rem;          /* 18px on phones */
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--white);
+  }
+  @media (min-width: 40em) {
+    body { font-size: 1.1875rem; } /* 19px on tablets and larger */
+  }
+
+  .skip {
+    position: absolute;
+    left: -999px;
+    top: 0.5rem;
+    background: var(--navy);
+    color: var(--white);
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
+  }
+  .skip:focus { left: 0.5rem; z-index: 10; }
+
+  .wrap {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+  }
+
+  /* ---------- header ---------- */
+  .masthead {
+    background: var(--navy);
+    color: var(--white);
+    padding: 2rem 0 2.25rem;
+  }
+  .masthead .symposium {
+    margin: 0 0 1.25rem;
+    font-size: 0.95rem;
+    color: #D6DEEB;
+  }
+  .masthead h1 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 2.1rem;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--white);
+  }
+  .masthead h1 .subtitle {
+    display: block;
+    margin-top: 0.55rem;
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.3;
+    color: #E6ECF5;
+  }
+  @media (min-width: 40em) {
+    .masthead { padding: 3rem 0 3rem; }
+    .masthead h1 { font-size: 2.9rem; }
+    .masthead h1 .subtitle { font-size: 1.5rem; }
+  }
+  .masthead .authors {
+    margin: 1.5rem 0 0.35rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+  }
+  .masthead .affiliation {
+    margin: 0;
+    font-size: 0.98rem;
+    line-height: 1.5;
+    color: #D6DEEB;
+  }
+
+  /* ---------- contents ---------- */
+  .contents {
+    border-bottom: 1px solid var(--rule);
+    padding: 1.1rem 0 1rem;
+  }
+  .contents p {
+    margin: 0 0 0.4rem;
+    font-size: 0.95rem;
+    color: var(--slate);
+  }
+  .contents ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+  }
+  .contents a {
+    display: inline-block;
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 0.95rem;
+    line-height: 1.3;
+  }
+  .contents a:hover, .contents a:focus { background: var(--tint); }
+
+  /* ---------- sections ---------- */
+  main { padding-bottom: 1rem; }
+  section { padding: 1.75rem 0 0.5rem; scroll-margin-top: 1rem; }
+  section + section { border-top: 1px solid var(--rule); }
+
+  h2 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    color: var(--navy);
+    margin: 0 0 0.75rem;
+  }
+  @media (min-width: 40em) { h2 { font-size: 1.7rem; } }
+
+  p { margin: 0 0 1rem; }
+  .lede { font-size: 1.15em; line-height: 1.55; }
+
+  ol, ul { margin: 0 0 1rem; padding-left: 1.4rem; }
+  li { margin-bottom: 0.55rem; }
+  li::marker { color: var(--navy); font-weight: 700; }
+
+  .findings { list-style: none; padding: 0; }
+  .findings li {
+    position: relative;
+    padding-left: 1.6rem;
+    margin-bottom: 0.9rem;
+    font-size: 1.05em;
+  }
+  .findings li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background: var(--navy);
+  }
+
+  .method {
+    background: var(--tint);
+    border-radius: 0.5rem;
+    padding: 1rem 1.1rem;
+    margin: 0 0 1rem;
+  }
+  .method p { margin: 0; }
+
+  .contact {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+  }
+  .contact li {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.15rem 0.75rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--rule);
+    margin: 0;
+  }
+  .contact li:last-child { border-bottom: 0; }
+  .contact .name { font-weight: 600; min-width: 11rem; }
+
+  a { color: var(--navy); text-underline-offset: 0.15em; }
+  a:focus-visible, .contents a:focus-visible {
+    outline: 3px solid var(--navy);
+    outline-offset: 2px;
+  }
+
+  .references { padding-left: 1.5rem; font-size: 0.95em; line-height: 1.5; }
+  .references li { margin-bottom: 0.7rem; padding-left: 0.2rem; }
+
+  /* ---------- footer ---------- */
+  footer {
+    background: var(--tint);
+    border-top: 1px solid var(--rule);
+    padding: 1.75rem 0 2.5rem;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--slate);
+  }
+  footer h2 {
+    font-family: var(--sans);
+    font-size: 1rem;
+    color: var(--navy);
+    margin: 1.25rem 0 0.35rem;
+  }
+  footer h2:first-child { margin-top: 0; }
+  footer p { margin: 0 0 0.6rem; }
+  .cite { font-style: italic; }
+</style>
+</head>
+<body>
+<a class="skip" href="#summary">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="symposium">UNR Graduate Poster Symposium, October 27, 2026</p>
+    <h1>Fooled at First Sight?
+      <span class="subtitle">Eye-Tracking, Memory Recall, and Psychometric Modeling of Real vs. AI Image Judgments</span>
+    </h1>
+    <p class="authors">Joanna Lopez, Laura Crosswell, PhD, and Frederick C. Harris, Jr., PhD</p>
+    <p class="affiliation">Department of Computer Science and Engineering and Reynolds School of Journalism, University of Nevada, Reno</p>
+  </div>
+</header>
+
+<nav class="contents" aria-label="On this page">
+  <div class="wrap">
+    <p>On this page</p>
+    <ul>
+      <li><a href="#summary">Summary</a></li>
+      <li><a href="#questions">Research questions</a></li>
+      <li><a href="#method">Method</a></li>
+      <li><a href="#findings">Key findings</a></li>
+      <li><a href="#people">What people said</a></li>
+      <li><a href="#next">Next steps</a></li>
+      <li><a href="#data">Data availability</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#references">References</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+
+    <section id="summary">
+      <h2>Summary</h2>
+      <p class="lede">Generative AI can now make images people can't reliably tell from real photos. We studied how people look at, judge, and remember AI versus real images, using eye tracking and two memory tests.</p>
+    </section>
+
+    <section id="questions">
+      <h2>Research questions</h2>
+      <ol>
+        <li>How do people visually process AI images compared with real photographs?</li>
+        <li>How does memory for these images change over a short delay?</li>
+        <li>How do image difficulty and individual ability relate to performance?</li>
+      </ol>
+    </section>
+
+    <section id="method">
+      <h2>Method</h2>
+      <div class="method">
+        <p>42 participants viewed 18 pairs of images (one real photograph and one AI image matched by emotional category) and chose the AI image while their eye movements were recorded. They then completed two recognition memory tests, 10 minutes apart.</p>
+      </div>
+    </section>
+
+    <section id="findings">
+      <h2>Key findings</h2>
+      <ul class="findings">
+        <li>AI images drew more attention but led to faster decisions.</li>
+        <li>After 10 minutes, people made more false memory errors, but their memory for images they had actually seen held steady.</li>
+        <li>Emotional images made AI easier to spot; nature scenes made it harder.</li>
+      </ul>
+    </section>
+
+    <section id="people">
+      <h2>What people said</h2>
+      <p>Participants relied on camera artifacts, unnatural human features, landscape realism, and scene simplicity to judge images. Most found the task difficult.</p>
+    </section>
+
+    <section id="next">
+      <h2>Next steps</h2>
+      <p>This work is being prepared for publication. Additional analyses are ongoing.</p>
+    </section>
+
+    <section id="data">
+      <h2>Data availability</h2>
+      <p>Data will be made available upon publication. For inquiries, contact <a href="mailto:joannalopez@unr.edu">joannalopez@unr.edu</a>.</p>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <ul class="contact">
+        <li><span class="name">Joanna Lopez</span> <a href="mailto:joannalopez@unr.edu">joannalopez@unr.edu</a></li>
+        <li><span class="name">Laura Crosswell, PhD</span> <a href="mailto:lcrosswell@unr.edu">lcrosswell@unr.edu</a></li>
+        <li><span class="name">Frederick C. Harris, Jr., PhD</span> <a href="mailto:fred.harris@unr.edu">fred.harris@unr.edu</a></li>
+      </ul>
+    </section>
+
+    <section id="references">
+      <h2>References</h2>
+      <ol class="references">
+        <li>Nightingale, S. J., &amp; Farid, H. (2022). AI-synthesized faces are indistinguishable from real faces and more trustworthy. <em>Proceedings of the National Academy of Sciences, 119</em>(8), e2120481119.</li>
+        <li>Bray, S. D., Johnson, S. D., &amp; Kleinberg, B. (2023). Testing human ability to detect “deepfake” images of human faces. <em>Journal of Cybersecurity, 9</em>(1), tyad011.</li>
+        <li>Huang, J., Gopalakrishnan, S., Mittal, T., Zuena, J., &amp; Pytlarz, J. (2025). Analysis of human perception in distinguishing real and AI-generated faces: An eye-tracking based study. In <em>2025 IEEE 19th International Conference on Automatic Face and Gesture Recognition (FG)</em> (pp. 1–10). IEEE.</li>
+        <li>de Winter, J. C., Pfeifer, J., Dodou, D., &amp; Eisma, Y. B. (2025). Detecting Midjourney-generated images: An eye-tracking study. <em>Proceedings of the Human Factors and Ergonomics Society Annual Meeting, 69</em>, 2000–2005.</li>
+        <li>Kätsyri, J. (2018). Those virtual people all look the same to me: Computer-rendered faces elicit a higher false alarm rate than real human faces in a recognition memory task. <em>Frontiers in Psychology, 9</em>, 1362.</li>
+        <li>Stanislaw, H., &amp; Todorov, N. (1999). Calculation of signal detection theory measures. <em>Behavior Research Methods, Instruments, &amp; Computers, 31</em>(1), 137–149.</li>
+        <li>Embretson, S. E., &amp; Reise, S. P. (2013). <em>Item response theory for psychologists</em>. Psychology Press.</li>
+        <li>Clarke, V., &amp; Braun, V. (2017). Thematic analysis. <em>The Journal of Positive Psychology, 12</em>(3), 297–298.</li>
+      </ol>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <h2>Citation</h2>
+    <p>© 2026 Joanna Lopez, Laura Crosswell, and Frederick C. Harris, Jr. Please cite as:</p>
+    <p class="cite">Lopez, J., Crosswell, L., &amp; Harris, F. C., Jr. (2026). Fooled at first sight? Eye-tracking, memory recall, and psychometric modeling of real vs. AI image judgments. Presented at the UNR Graduate Poster Symposium, University of Nevada, Reno.</p>
+    <h2>Acknowledgments</h2>
+    <p>Work is supported in part by the National Science Foundation. Thanks to the Center for Advanced Media Laboratory at the Reynolds School of Journalism.</p>
+  </div>
+</footer>
+</body>
+</html>
